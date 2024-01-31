@@ -123,7 +123,7 @@ module Members
     end
 
     def button_links
-      if !model.project_role?
+      if !member.project_role?
         [share_warning]
       elsif may_update? && may_delete?
         [edit_link, delete_link].compact
