@@ -143,7 +143,7 @@ module Members
 
     def edit_link
       link_to(
-        helpers.op_icon('icon icon-edit'),
+        render(Primer::Beta::Octicon.new(icon: :pencil)),
         '#',
         class: "toggle-membership-button #{toggle_item_class_name}",
         'data-action': 'members-form#toggleMembershipEdit',
@@ -163,7 +163,7 @@ module Members
     def delete_link
       if model.deletable?
         link_to(
-          helpers.op_icon('icon icon-delete'),
+          render(Primer::Beta::Octicon.new(icon: :trash)),
           { controller: '/members', action: 'destroy', id: model, page: params[:page] },
           method: :delete,
           data: { confirm: delete_link_confirmation, disable_with: I18n.t(:label_loading) },
