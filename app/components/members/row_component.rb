@@ -143,13 +143,18 @@ module Members
 
     def edit_link
       link_to(
-        render(Primer::Beta::Octicon.new(icon: :pencil)),
+        edit_icon,
         '#',
         class: "toggle-membership-button #{toggle_item_class_name}",
         'data-action': 'members-form#toggleMembershipEdit',
         'data-members-form-toggling-class-param': toggle_item_class_name,
         title: t(:button_edit)
       )
+    end
+
+    def edit_icon
+      render(Primer::Beta::Octicon.new(icon: :pencil))
+      # render(Primer::Beta::IconButton.new(size: :small, icon: :pencil, "aria-label": "Edit roles"))
     end
 
     def roles_css_id
@@ -163,13 +168,18 @@ module Members
     def delete_link
       if model.deletable?
         link_to(
-          render(Primer::Beta::Octicon.new(icon: :trash)),
+          delete_icon,
           { controller: '/members', action: 'destroy', id: model, page: params[:page] },
           method: :delete,
           data: { confirm: delete_link_confirmation, disable_with: I18n.t(:label_loading) },
           title: delete_title
         )
       end
+    end
+
+    def delete_icon
+      render(Primer::Beta::Octicon.new(icon: :trash))
+      # render(Primer::Beta::IconButton.new(scheme: :danger, size: :small, icon: :trash, "aria-label": "Delete member"))
     end
 
     def delete_title
