@@ -35,6 +35,13 @@ GIT
       rspec (>= 3.10)
 
 GIT
+  remote: https://github.com/honestica/clamav-client.git
+  revision: 29e78ae94307cb34e79ddd29c5da79752239d8b7
+  ref: 29e78ae94307cb34e79ddd29c5da79752239d8b7
+  specs:
+    clamav-client (3.4.2)
+
+GIT
   remote: https://github.com/opf/md-to-pdf
   revision: 04d22bfa73fbeb549fb1f215a6b9a81cfe820814
   ref: 04d22bfa73fbeb549fb1f215a6b9a81cfe820814
@@ -1146,6 +1153,7 @@ DEPENDENCIES
   capybara_accessible_selectors!
   carrierwave (~> 1.3.1)
   carrierwave_direct (~> 2.1.0)
+  clamav-client!
   climate_control
   closure_tree (~> 7.4.0)
   colored2
