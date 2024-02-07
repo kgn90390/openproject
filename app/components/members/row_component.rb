@@ -115,29 +115,21 @@ module Members
     end
 
     def may_update?
-      table.authorize_update
+      table.authorize_update && member.project_role?
     end
 
     def may_delete?
-      table.authorize_update
+      table.authorize_delete && member.deletable?
+    end
+
+    def may_delete_shares?
+      table.authorize_work_package_shares_delete && member.shared_work_packages_count?
     end
 
     def button_links
-      if !member.project_role?
-        [share_warning]
-      elsif may_update? && may_delete?
-        [edit_link, delete_link].compact
-      elsif may_delete?
-        [delete_link].compact
-      else
-        []
-      end
-    end
-
-    def share_warning
-      content_tag(:span,
-                  title: I18n.t('members.no_modify_on_shared')) do
-        helpers.op_icon('icon icon-info1')
+      @button_links ||= [].tap do |links|
+        links << edit_link if may_update?
+        links << delete_link if may_delete?|| may_delete_shares?
       end
     end
 
@@ -166,15 +158,13 @@ module Members
     end
 
     def delete_link
-      if model.deletable?
-        link_to(
-          delete_icon,
-          { controller: '/members', action: 'destroy', id: model, page: params[:page] },
-          method: :delete,
-          data: { confirm: delete_link_confirmation, disable_with: I18n.t(:label_loading) },
-          title: delete_title
-        )
-      end
+      link_to(
+        delete_icon,
+        { controller: '/members', action: 'destroy', id: model, page: params[:page] },
+        method: :delete,
+        data: { confirm: delete_link_confirmation, disable_with: I18n.t(:label_loading) },
+        title: delete_title
+      )
     end
 
     def delete_icon
